@@ -1,0 +1,478 @@
+**Stack**
+public class Stack {
+    int arr[];
+    int capalcity;
+    int top;
+
+
+    Stack(int size){
+        arr = new int[size];
+        capalcity = size;
+        top = -1;
+    }
+
+    Boolean isFull(){
+        return top+1 == capalcity;
+    }
+
+    Boolean isEmpty(){
+        return top == -1;
+    }
+
+    void push(int x){
+        if (isFull()) {
+            System.out.println("Over flow");
+        }else{
+            top++;
+            arr[top] = x;
+            System.out.println("inserting " +x);
+        }
+    }
+
+    void pop(){
+        if (isEmpty()) {
+            System.out.println("Stack is allrady empty !");
+        }else{
+            System.out.println("Removing : " +arr[top]);
+            top--;
+        }
+    }
+    
+    void print(){
+        System.out.println("Avalable data");
+        for(int i=0; i<=top; i++){
+            System.out.println(arr[i]);
+        }
+    }
+
+    public static void main(String[] args){
+        Stack myStack = new Stack(5);
+
+        myStack.push(5);
+        myStack.push(10);
+        myStack.push(15);
+        myStack.push(20);
+        myStack.push(25);
+        myStack.push(30);
+        myStack.pop();
+        myStack.pop();
+        myStack.print();
+       
+        
+
+    }
+}
+
+
+**Stack End""
+
+** Queue Start**
+public class Queue{
+    int QueueArr[];
+    int front;
+    int rear;
+    int capalcity;
+    int noitem;
+
+    Queue(int size){
+        QueueArr = new int[size];
+        capalcity = size;
+        front =0;
+        rear = -1;
+    }
+
+    Boolean isFull(){
+        return rear + 1 == capalcity;
+    }
+
+    Boolean isEmpty(){
+        return front > rear;
+    }
+
+
+    void enQueue(int x){
+        if (isFull()) {
+            System.out.println(("Queue is Full !"));
+        }else{
+            rear++;
+            QueueArr[rear] = x;
+            System.out.println("Inserting : " +x);
+        }
+    }
+
+    void deQueue(){
+        if (isEmpty()) {
+            System.out.println("Queue is empty");
+        }else{
+            System.out.println("Removing : " +QueueArr[front]);
+            front++;
+        }
+    }
+
+    void printQueue(){
+        System.out.println("Available Itam");
+        for(int i = front; i <= rear; i++)
+        System.out.println(QueueArr[i]);
+    }
+
+    public static void main(String[] args) {
+        Queue myQueue = new Queue(5);
+
+        myQueue.enQueue(10);
+        myQueue.enQueue(20);
+        myQueue.enQueue(30);
+        myQueue.deQueue();
+        myQueue.deQueue();
+        myQueue.printQueue();
+
+    }
+}
+
+** Queue End **
+
+**Quick Short **
+public class QuickShort {
+   
+    int arr[];
+
+    public QuickShort(int arr[])
+    {
+        this.arr=arr;
+    }
+    
+    public int  partiton(int arr[],int low, int high)
+    {
+     int pivot=arr[low];
+     int start=low;
+     int end=high;
+     
+     while(start<end)
+     {
+         while(start<=high && arr[start]<=pivot)
+         {
+             start++;
+         }
+         while(end>=low &&arr[end]>pivot)
+         {
+             end--;
+         }
+         if(start<end) // methnva mokak hari error ekk thiye
+         {
+             int temp=arr[start];
+             arr[start]=arr[end];
+             arr[end]=temp;
+         }
+     }
+     int temp=arr[low];
+     arr[low]=arr[end];
+     arr[end]=temp;
+     return end;
+}
+    
+  public void Qicksort(int arr[],int low,int high)
+  {
+      if(low<high)
+      {
+          int location=partiton(arr, low, high);
+          Qicksort(arr, low, location-1);
+          Qicksort(arr,location+1,high);
+      }
+  }
+  
+  
+  public void print()
+  {
+      for(int i=0;i<arr.length;i++)
+      {
+          System.out.print(arr[i]+" ");
+      }
+      System.out.println();
+  }
+  
+    public static void main(String[] args)
+    {
+        int arr[]={7,6,10,5,9,2,1,15,7};
+        QuickShort quick=new QuickShort(arr);
+        System.out.println("Array before shorted..");
+        quick.print();
+        System.out.println("Array after shorted..");
+        quick.Qicksort(arr,0,arr.length-1);
+        quick.print();
+    }
+    
+    
+}
+
+**Quick Short End **
+
+**Merge Short**
+public class MergeShort {
+
+    int arr[];
+    int b[];
+
+    public MergeShort(int arr[]){
+        this.arr = arr;
+        this.b = new int[arr.length];
+    }
+
+    public void mergesort(int arr[],int min,int high){
+        if (min < high) {
+            int mid = (min+high)/2;
+            mergesort(arr, min, mid);
+            mergesort(arr, mid+1, high);
+            merge( arr, min, mid, high);
+        }
+    }
+
+    public void merge(int arr[],int min,int mid,int high){
+        int i = min;
+        int j = mid+1;
+        int k = min;
+
+        while (i <= mid && j <= high) {
+            if (arr[i] <= arr[j]) {
+                b[k] = arr[i];
+                i++;
+            }
+            else{
+                b[k] = arr[j];
+                j++;
+            }
+            k++;
+        }
+
+        if(i> mid){
+            while (j<=high) {
+                b[k] = arr[j];
+                j++;
+                k++;
+            }
+        }else{
+            while (i<=mid) {
+                b[k] = arr[i];
+                i++;
+                k++;
+            }
+        }
+        for(int a=min; a<=high; a++){
+            arr[a] = b[a];
+        }
+
+
+    }
+
+    public void print(){
+        for(int i=0; i<arr.length; i++){
+            System.out.print(arr[i] +" ");
+        
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        int arr[] = {10,42,7,8,9,36,5};
+        MergeShort myMergeShort = new MergeShort(arr);
+        System.out.println("Before shorting ..");
+        myMergeShort.print();
+        System.out.println("After shorting ..");
+        myMergeShort.mergesort(arr, 0,arr.length-1);
+        myMergeShort.print();
+    }
+}
+**Merge short End**
+
+** BST **
+
+ class node
+ {
+    int data;
+    node left;
+    node right;
+
+    public node(int data)
+    {
+      this.data=data;
+    }
+ }
+public class BST
+{
+   node root;
+   
+   public void insert(int data)
+   {
+       root=insertRec(root,data);
+   }
+   
+   public node insertRec(node root, int data)
+   {
+       if(root==null)
+       {
+           root=new node(data);
+       }
+       else if(data<root.data)
+       {
+           root.left=insertRec(root.left, data);
+       }
+       else if(data>root.data)
+       {
+           root.right=insertRec(root.right, data);
+       }
+       
+       return root;
+   }
+   
+   
+   public void preorder()
+   {
+       System.out.println();
+       System.out.print("preorder :");
+       preorderRec(root);
+   }
+   
+   public void preorderRec(node root)
+   {
+       if(root !=null)
+       {
+           System.out.print(root.data+" ");
+           preorderRec(root.left);
+           preorderRec(root.right);
+       }
+   }
+   
+   public void inorder()
+   {
+       System.out.println();
+       System.out.print("inorder :");
+       inorderRec(root);
+   }
+   
+   public void inorderRec(node root)
+   {
+       if(root != null)
+       {
+           inorderRec(root.left);
+           System.out.print(root.data+" ");
+           inorderRec(root.right);
+       }
+   }
+   
+   public void postorder()
+   {
+       System.out.println();
+       System.out.print("Postorder: ");
+       postorderRec(root);
+   }
+   
+   public void postorderRec(node root)
+   {
+       if(root != null)
+       {
+           postorderRec(root.left);
+           postorderRec(root.right);
+           System.out.print(root.data+" ");
+       }
+   }
+   
+   public static void main(String[] args)
+   {
+       BST tree=new BST();
+       tree.insert(25);
+       tree.insert(56);
+       tree.insert(42);
+       tree.insert(12);
+       tree.insert(30);
+       tree.insert(21);
+       tree.insert(90);
+       tree.insert(100);
+       tree.insert(8);
+       tree.insert(95);
+       
+       
+       tree.preorder();
+       tree.inorder();
+       tree.postorder();
+       
+   }
+}
+
+** BST END **
+
+***********************kit****************************(Stack)
+import java.util.Scanner;
+
+public class CustomStack {
+    String arr[];
+    int capacity;
+    int top;
+
+    // Constructor
+    CustomStack(int size) {
+        arr = new String[size];
+        capacity = size;
+        top = -1;
+    }
+
+    boolean isFull() {
+        return top + 1 == capacity;
+    }
+
+    boolean isEmpty() {
+        return top == -1;
+    }
+
+    void push(String shipmentId) {
+        if (isFull()) {
+            System.out.println("Stack is Full. Cannot add " + shipmentId);
+        } else {
+            top++;
+            arr[top] = shipmentId;
+            System.out.println("Shipment added: " + shipmentId);
+        }
+    }
+
+    void pop() {
+        if (isEmpty()) {
+            System.out.println("Stack is Empty. No shipment to process.");
+        } else {
+            System.out.println("Shipment completed: " + arr[top]);
+            top--;
+        }
+    }
+
+    // For testing or printing stack (optional)
+    void printStack() {
+        System.out.print("Current Stack: ");
+        for (int i = 0; i <= top; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+    }
+
+    // MAIN method as required
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        CustomStack shipmentStack = new CustomStack(5);
+
+        // Add shipments
+        shipmentStack.push("S00001");
+        shipmentStack.push("S00002");
+        shipmentStack.push("S00003");
+        shipmentStack.push("S00004");
+        shipmentStack.push("S00005");
+
+        // Try processing shipments
+        while (!shipmentStack.isEmpty()) {
+            System.out.print("Has the shipment completed processing? (Yes/No): ");
+            String response = scanner.nextLine();
+
+            if (response.equalsIgnoreCase("Yes")) {
+                shipmentStack.pop();
+            } else {
+                System.out.println("Shipment not processed yet.");
+            }
+        }
+
+        System.out.println("All shipments processed. Stack is empty now.");
+    }
+}
